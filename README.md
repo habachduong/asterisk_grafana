@@ -4,6 +4,7 @@ A monitoring system for OPS_Kamailio using InfluxDB and Grafana to collect, stor
 
 ## System Architecture
 ![Infrastructure Overview](images/infa.png)
+## Grafana Dashboard
 ![Grafana Dashboard](images/image003.png)
 
 
