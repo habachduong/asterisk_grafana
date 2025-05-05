@@ -3,8 +3,9 @@
 A monitoring system for OPS_Kamailio using InfluxDB and Grafana to collect, store, and visualize metrics.
 
 ## System Architecture
+![Infrastructure Overview](images/infa.png)
+![Grafana Dashboard](images/image003.png)
 
-![System Architecture](images/image003.png)
 
 The system consists of the following main components:
 
