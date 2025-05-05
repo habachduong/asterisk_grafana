@@ -1,0 +1,45 @@
+#yum install podman-compose
+#yum install -y socat
+##socat TCP-LISTEN:9889,fork UNIX-CONNECT:/run/podman/podman.sock &
+## stop nhung dich vu sau de pull image
+#sudo systemctl stop mfetpd
+#sudo systemctl stop mfeespd
+# cho socat vao system:
+# vi sudo nano /etc/systemd/system/socat-podman.service
+# [Unit]
+# Description=Socat TCP Proxy for Podman API
+# After=network.target
+
+# [Service]
+# ExecStart=/usr/bin/socat TCP-LISTEN:9889,fork UNIX-CONNECT:/run/podman/podman.sock
+# Restart=always
+# User=root
+
+# [Install]
+# WantedBy=multi-user.target
+
+##kiemtra
+# sudo systemctl daemon-reload
+# sudo systemctl enable socat-podman
+# sudo systemctl start socat-podman
+
+##start podman socket
+# rm -Rf /run/podman/podman.sock/
+# systemctl restart podman.socket
+# systemctl enable podman.socket
+
+version: "3.8"
+services:
+  metric_api:
+    image: dockerdso-dev.techcombank.com.vn/asterisk/python-3.8:stable
+    container_name: podman_metric
+    restart: always
+    network_mode: "host"
+    user: root
+    volumes:
+      - /run/podman/podman.sock:/run/podman/podman.sock
+      - /etc/localtime:/etc/localtime:ro
+      - /data/OPS:/data/OPS
+      - /data/OPS/OPS.conf:/etc/OPS.conf
+    entrypoint: ["python3", "/data/OPS/podman_metric.py"]
+

@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  metric_api:
+    image: dockerdso-dev.techcombank.com.vn/asterisk/python-3.8:stable
+    container_name: send_api
+    restart: always
+    user: root
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /data/OPS:/data/OPS
+      - /data/OPS/OPS.conf:/etc/OPS.conf
+    ports:
+      - "8899:8899"
+    entrypoint: ["python3", "/data/OPS/send_API.py"]

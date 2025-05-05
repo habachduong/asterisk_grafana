@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  metric_api:
+    image: dockerdso-dev.techcombank.com.vn/asterisk/python-3.8:stable
+    container_name: metric_api
+    restart: always
+    user: root
+    volumes:
+      - /run/podman/podman.sock:/run/podman/podman.sock
+      - /etc/localtime:/etc/localtime:ro
+      - /data/OPS:/data/OPS
+      - /data/OPS/OPS.conf:/etc/OPS.conf
+    ports:
+      - "9150:8000"
+    entrypoint: ["python3", "/data/OPS/asterisk_metric.py"]

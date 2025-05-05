@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  metric_api:
+    image: dockerdso-dev.techcombank.com.vn/asterisk/python-3.8:stable
+    container_name: http_code_metric
+    restart: always
+    user: root
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /data/OPS:/data/OPS
+      - /data/OPS/OPS.conf:/etc/OPS.conf
+    entrypoint: ["python3", "/data/OPS/http_code_metric.py"]
